@@ -16,6 +16,7 @@ Creado <- Tickets %>%
   group_by(Creado) %>%
   summarise(N=n())
 
+# Diario
 ts_Creado_Diarios <- ts(Creado$N, start=c(2015,7), frequency=365)
 
 autoplot(ts_Creado_Diarios) +
@@ -23,6 +24,7 @@ autoplot(ts_Creado_Diarios) +
   ylab("# de tickets") +
   xlab("días") 
 
+# Mensual
 Creado_Mensual <- Creado %>%
   mutate(MES = month(Creado), ANNO = year(Creado)) %>%
   group_by(ANNO, MES) %>%
@@ -37,4 +39,6 @@ ts_Creado_Mensual
 autoplot(ts_Creado_Mensual) +
   ggtitle("Tickets creados por mes") +
   ylab("# de tickets") +
-  xlab("Mes") 
+  xlab("Mes") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_x_date(date_labels = "%Y/%m", date_breaks = "1 months")
