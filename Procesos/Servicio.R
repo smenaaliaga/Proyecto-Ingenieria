@@ -1,12 +1,15 @@
 library(tidyverse)
 
-setwd("C:/Users/smena/Desktop/Proyecto Ingenieria EII/Origen de datos")
+setwd("C:/Users/smena/Documents/Proyecto-Ingenieria/Origen de datos")
 
 Tickets <- read.csv2(
   "TICKET_CREADOS_POR_FECHA_Created_2019-10-11_21-27.csv", 
   encoding = "UTF-8")
 
-#### SERVICIO
+##############
+## SERVICIO ##
+##############
+
 Servicios <- Tickets %>%
   select(Servicio) %>%
   group_by(Servicio) %>%
@@ -16,14 +19,12 @@ Servicios <- Servicios[-1,]
 
 Servicios_Total <- Servicios[!grepl("::", Servicios$Servicio),]
 
-Servicios_Total <- Servicios_Total[-1,]
-
 ggplot(Servicios_Total, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Servicios") +
-  ylab("# de activos") +
-  xlab("Servicios Totales") 
+  ylab("# de tickets") +
+  xlab("Servicios") 
 
 
 ### SERVICIO - HARDWARE
@@ -42,7 +43,7 @@ ggplot(Hardware_Total, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Hardware") +
-  ylab("# de activos") +
+  ylab("# de tickets") +
   xlab("Servicios") 
 
 
@@ -62,7 +63,7 @@ ggplot(Hardware_Impresora_Total, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Hardware - Impresora") +
-  ylab("# de activos") +
+  ylab("# de tickets") +
   xlab("Servicios") 
 
 ## SERVICIO - HARDWARE - IMPRESORA - LASER
@@ -76,7 +77,7 @@ ggplot(Hardware_Impresora_Laser, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Hardware - Impresora - Laser") +
-  ylab("# de activos") +
+  ylab("# de tickets") +
   xlab("Servicios") 
 
 ## SERVICIO - HARDWARE - IMPRESORA - MULTIFUNCIONAL
@@ -90,7 +91,7 @@ ggplot(Hardware_Impresora_Multifuncional, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Hardware - Impresora - Multifuncional") +
-  ylab("# de activos") +
+  ylab("# de tickets") +
   xlab("Servicios") 
 
 ### SERVICIO - RED
@@ -105,5 +106,5 @@ ggplot(Redes, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Redes") +
-  ylab("# de activos") +
+  ylab("# de tickets") +
   xlab("Servicios") 
