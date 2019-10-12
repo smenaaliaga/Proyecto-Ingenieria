@@ -11,3 +11,70 @@ Servicios <- Tickets %>%
   select(Servicio) %>%
   group_by(Servicio) %>%
   summarise(N=n())
+
+### SERVICIO - HARDWARE
+Hardware <- Servicios %>%
+  filter(str_detect(Servicio, "Hardware"))
+
+Hardware$Servicio <- gsub("Hardware::", "", Hardware$Servicio)
+
+Hardware <- Hardware[-1,]
+
+Hardware_Total <- Hardware[!grepl("::", Hardware$Servicio),]
+
+Hardware_Total <- Hardware_Total[-1,]
+
+ggplot(Hardware_Total, aes(x=Servicio, y=N)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Hardware") +
+  ylab("# de equipos") +
+  xlab("Servicios") 
+
+
+## SERVICIO - HARDWARE - IMPRESORA
+Hardware_Impresora <- Hardware %>%
+  filter(str_detect(Servicio, "IMPRESORAS")) 
+
+Hardware_Impresora$Servicio <- 
+  gsub("IMPRESORAS::", "", Hardware_Impresora$Servicio)  
+
+Hardware_Impresora_Total <- 
+  Hardware_Impresora[!grepl("::", Hardware_Impresora$Servicio),]
+
+Hardware_Impresora_Total <- Hardware_Impresora_Total[-1,]
+
+ggplot(Hardware_Impresora_Total, aes(x=Servicio, y=N)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Hardware - Impresora") +
+  ylab("# de equipos") +
+  xlab("Servicios") 
+
+## SERVICIO - HARDWARE - IMPRESORA - LASER
+Hardware_Impresora_Laser <- Hardware_Impresora %>%
+  filter(str_detect(Servicio, "LASER")) 
+
+Hardware_Impresora_Laser$Servicio <- 
+  gsub("LASER::", "", Hardware_Impresora_Laser$Servicio)  
+
+ggplot(Hardware_Impresora_Laser, aes(x=Servicio, y=N)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Hardware - Impresora - Laser") +
+  ylab("# de equipos") +
+  xlab("Servicios") 
+
+## SERVICIO - HARDWARE - IMPRESORA - MULTIFUNCIONAL
+Hardware_Impresora_Multifuncional <- Hardware_Impresora %>%
+  filter(str_detect(Servicio, "MULTIFUNCIONAL")) 
+
+Hardware_Impresora_Multifuncional$Servicio <- 
+  gsub("MULTIFUNCIONAL::", "", Hardware_Impresora_Multifuncional$Servicio)  
+
+ggplot(Hardware_Impresora_Multifuncional, aes(x=Servicio, y=N)) +
+  geom_bar(stat="identity") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Hardware - Impresora - Multifuncional") +
+  ylab("# de equipos") +
+  xlab("Servicios") 
