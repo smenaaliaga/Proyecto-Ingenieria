@@ -24,9 +24,10 @@ Servicios_Total <- Servicios[!grepl("::", Servicios$Servicio),]
 ggplot(Servicios_Total, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Servicios") +
+  ggtitle("Servicio solicitado") +
   ylab("# de tickets") +
-  xlab("Servicios") 
+  xlab("Servicios") +
+  geom_text(aes(x = Servicio, y = N, label = N), vjust = -0.5)
 
 
 ### SERVICIO - HARDWARE
@@ -44,9 +45,10 @@ Hardware_Total <- Hardware_Total[-1,]
 ggplot(Hardware_Total, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Hardware") +
+  ggtitle("Servicio hardware solicitado") +
   ylab("# de tickets") +
-  xlab("Servicios") 
+  xlab("Servicios") +
+  geom_text(aes(x = Servicio, y = N, label = N), vjust = -0.5)
 
 
 ## SERVICIO - HARDWARE - IMPRESORA
@@ -64,9 +66,10 @@ Hardware_Impresora_Total <- Hardware_Impresora_Total[-1,]
 ggplot(Hardware_Impresora_Total, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Hardware - Impresora") +
+  ggtitle("Servicio impresora solicitado") +
   ylab("# de tickets") +
-  xlab("Servicios") 
+  xlab("Servicios") +
+  geom_text(aes(x = Servicio, y = N, label = N), vjust = -0.5)
 
 ## SERVICIO - HARDWARE - IMPRESORA - LASER
 Hardware_Impresora_Laser <- Hardware_Impresora %>%
@@ -78,9 +81,10 @@ Hardware_Impresora_Laser$Servicio <-
 ggplot(Hardware_Impresora_Laser, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Hardware - Impresora - Laser") +
+  ggtitle("Servicio de impresora laser solicitado") +
   ylab("# de tickets") +
-  xlab("Servicios") 
+  xlab("Servicios") +
+  geom_text(aes(x = Servicio, y = N, label = N), vjust = -0.5)
 
 ## SERVICIO - HARDWARE - IMPRESORA - MULTIFUNCIONAL
 Hardware_Impresora_Multifuncional <- Hardware_Impresora %>%
@@ -92,9 +96,10 @@ Hardware_Impresora_Multifuncional$Servicio <-
 ggplot(Hardware_Impresora_Multifuncional, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Hardware - Impresora - Multifuncional") +
+  ggtitle("Servicio de impresora multifuncional solicitado") +
   ylab("# de tickets") +
-  xlab("Servicios") 
+  xlab("Servicios") +
+  geom_text(aes(x = Servicio, y = N, label = N), vjust = -0.5)
 
 ### SERVICIO - RED
 Redes <- Servicios %>%
@@ -107,6 +112,7 @@ Redes <- Redes[-1,]
 ggplot(Redes, aes(x=Servicio, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Redes") +
+  ggtitle("Servicio red solicitado") +
   ylab("# de tickets") +
-  xlab("Servicios") 
+  xlab("Servicios") +
+  geom_text(aes(x = Servicio, y = N, label = N), vjust = -0.5)

@@ -20,6 +20,6 @@ Propietario <- Tickets %>%
 ggplot(Propietario, aes(x=Agente.Propietario, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Propietario") +
+  ggtitle("Cantidad ticket por propietario") +
   ylab("# de tickets") +
   xlab("Propietarios") 

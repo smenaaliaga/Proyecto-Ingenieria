@@ -20,9 +20,10 @@ Tipo <- Tickets %>%
 ggplot(Tipo, aes(x=Tipo, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Tipo") +
+  ggtitle("Tipos de ticket") +
   ylab("# de tickets") +
-  xlab("Tipos") 
+  xlab("Tipos") +
+  geom_text(aes(x = Tipo, y = N, label = N), vjust = -0.5)
 
 #####################
 ## Tipo - Servicio ##
@@ -37,17 +38,18 @@ Tipo_Servicio <- Tickets %>%
 Tipo_Servicio_Total <- 
   Tipo_Servicio[!grepl("::", Tipo_Servicio$Servicio),]
 
-## Tipo - Hardware
-ggplot(Tipo_Servicio_Total, aes(x=Tipo, y=N, fill=factor(Servicio))) +
+## Tipos por servicios
+ggplot(Tipo_Servicio_Total, aes(x=Tipo, y=N, fill=Servicio)) +
   geom_bar(stat="identity",position="dodge") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Tipo - Servicio") +
+  ggtitle("Tipo de ticket por servicio") +
   ylab("# de tickets") +
   xlab("Tipos") +
   scale_fill_discrete(name="Servicio",
                       breaks=c("Hardware", "Redes"),
                       labels=c("Hardware", "Red"))
 
+##################################################################
 # Tipo - Hardware
 Tipo_Hardware <- Tipo_Servicio %>%
   filter(str_detect(Servicio, "Hardware"), Servicio != "Hardware",
@@ -61,7 +63,7 @@ Tipo_Hardware <- Tipo_Hardware[!grepl("::", Tipo_Hardware$Servicio),]
 ggplot(Tipo_Hardware, aes(x=Servicio, y=N, fill=factor(Tipo))) +
   geom_bar(stat="identity",position="dodge") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Tipo - Hardware") +
+  ggtitle("Tipo de ticket por servicio de Hardware") +
   ylab("# de tickets") +
   xlab("Hardware") +
   scale_fill_discrete(name="Servicio",

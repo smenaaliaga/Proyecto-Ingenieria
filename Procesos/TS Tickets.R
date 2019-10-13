@@ -25,7 +25,7 @@ Creado <- Tickets %>%
 ts_Creado_Diarios <- ts(Creado$N, start=c(2015,7), frequency=365)
 
 autoplot(ts_Creado_Diarios) +
-  ggtitle("Tickets creados por dÃ­a") +
+  ggtitle("Tickets creados por dia") +
   ylab("# de tickets") +
   xlab("dias") 
 
@@ -76,8 +76,7 @@ dias_resolucion <- Tickets %>%
 
 ggplot(dias_resolucion, aes(x=DIA, y=N)) +
   geom_bar(stat="identity") +
-  ggtitle("Demora de resolucion de tickets") +
+  ggtitle("Demora de resolución de ticket") +
   ylab("# de tickets") +
-  xlab("Dias") +
-  coord_cartesian(xlim=c(0,25)) +
-  geom_text(aes(x = DIA, y = N, label = N), vjust = -0.5)
+  xlab("Días") +
+  coord_cartesian(xlim=c(0,15))

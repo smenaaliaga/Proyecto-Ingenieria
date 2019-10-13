@@ -4,7 +4,7 @@ setwd("C:/Users/smena/Documents/Proyecto-Ingenieria/Base de Datos")
 
 Tickets <- read.csv2(
   "TICKET_CREADOS_POR_FECHA_Created_2019-10-11_21-27.csv", 
-  encoding = "UTF-8") 
+  encoding = "UTF-8")
   
 Tickets <-  Tickets[-c(11206),]
 
@@ -20,6 +20,7 @@ Prioridad <- Tickets %>%
 ggplot(Prioridad, aes(x=Prioridad, y=N)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Prioridad") +
+  ggtitle("Cantidad de ticket por prioridad") +
   ylab("# de tickets") +
-  xlab("Prioridades") 
+  xlab("Prioridades") +
+  geom_text(aes(x = Prioridad, y = N, label = N), vjust = -0.5)
