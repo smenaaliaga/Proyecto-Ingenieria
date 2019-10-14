@@ -79,4 +79,4 @@ ggplot(dias_resolucion, aes(x=DIA, y=N)) +
   ggtitle("Demora de resolución de ticket") +
   ylab("# de tickets") +
   xlab("Días") +
-  coord_cartesian(xlim=c(0,15))
+  coord_cartesian(xlim=c(0,25))
