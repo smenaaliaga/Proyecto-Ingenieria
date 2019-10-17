@@ -8,8 +8,14 @@ setwd("C:/Users/smena/Documents/Proyecto-Ingenieria/Base de Datos")
 Tickets <- read.csv2(
   "TICKET_CREADOS_POR_FECHA_Created_2019-10-11_21-27.csv", 
   encoding = "UTF-8") 
-  
-Tickets <-  Tickets[-c(11206),]
+
+Tickets <- Tickets %>%
+  filter(Fecha.de.cierre != "", NÃºmero != 11206)
+
+###################
+## Seri temporal ##
+###################
+
 
 Tickets$Creado <- 
   format(as.Date(Tickets$Creado), format='%Y-%m-%d')
@@ -64,7 +70,7 @@ autoplot(ts_Creado_Mensual) +
 
 
 ###############################
-# Numero de días de respuesta #
+# Numero de d?as de respuesta #
 ###############################
 
 dias_resolucion <- Tickets %>%
@@ -76,7 +82,7 @@ dias_resolucion <- Tickets %>%
 
 ggplot(dias_resolucion, aes(x=DIA, y=N)) +
   geom_bar(stat="identity") +
-  ggtitle("Demora de resolución de ticket") +
+  ggtitle("Demora de resolucion de ticket") +
   ylab("# de tickets") +
-  xlab("Días") +
+  xlab("Dias") +
   coord_cartesian(xlim=c(0,25))

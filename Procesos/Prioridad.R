@@ -4,9 +4,10 @@ setwd("C:/Users/smena/Documents/Proyecto-Ingenieria/Base de Datos")
 
 Tickets <- read.csv2(
   "TICKET_CREADOS_POR_FECHA_Created_2019-10-11_21-27.csv", 
-  encoding = "UTF-8")
-  
-Tickets <-  Tickets[-c(11206),]
+  encoding = "UTF-8") 
+
+Tickets <- Tickets %>%
+  filter(Fecha.de.cierre != "", NÃºmero != 11206)
 
 ###############
 ## Prioridad ##
@@ -62,6 +63,6 @@ ggplot(resol_prioridad_servicio,
        aes(x=Prioridad, y=Dia_Resol, fill=Servicio)) + 
   geom_boxplot(outlier.shape = NA) +
   coord_cartesian(ylim = c(0,100)) +
-  ggtitle("Demora de resolución por prioridad y servicio") +
-  ylab("Días") +
+  ggtitle("Demora de resoluci?n por prioridad y servicio") +
+  ylab("D?as") +
   xlab("Prioridades") 
