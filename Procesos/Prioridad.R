@@ -2,12 +2,7 @@ library(tidyverse)
 
 setwd("C:/Users/smena/Documents/Proyecto-Ingenieria/Base de Datos")
 
-Tickets <- read.csv2(
-  "TICKET_CREADOS_POR_FECHA_Created_2019-10-11_21-27.csv", 
-  encoding = "UTF-8") 
-
-Tickets <- Tickets %>%
-  filter(Fecha.de.cierre != "", Número != 11206)
+Tickets <- read.csv2("TICKETS CERRADOS.csv", encoding = "UTF-8") 
 
 ###############
 ## Prioridad ##
@@ -30,18 +25,20 @@ ggplot(Prioridad, aes(x=Prioridad, y=N)) +
 ## Prioridad - Servicio ##
 ##########################
 
-Prioridad_Servicio <- Tickets %>%
-  filter(Servicio != "", Servicio != "Software") %>%
+Prioridad_Servicio <- Tickets
+Prioridad_Servicio$Servicio <- 
+  gsub("\\::.*","",Prioridad_Servicio$Servicio)
+
+Prioridad_Servicio <- Prioridad_Servicio %>%
+  filter(Servicio != "No Clasificado", Servicio != "Software") %>%
   group_by(Prioridad, Servicio) %>%
   summarise(N=n())
-
-Prioridad_Servicio <- Prioridad_Servicio[!grepl("::", Prioridad_Servicio$Servicio),]
 
 ggplot(Prioridad_Servicio, aes(x=Prioridad, y=N, fill = Servicio)) +
   geom_bar(stat="identity") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Cantidad de ticket por prioridad y servicio") +
-  ylab("# de tickets") +
+  ylab("# de tickets") + 
   xlab("Prioridades") +
   scale_fill_discrete(name="Servicio",
                       breaks=c("Hardware", "Redes"),

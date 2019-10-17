@@ -5,22 +5,11 @@ library(forecast)
 
 setwd("C:/Users/smena/Documents/Proyecto-Ingenieria/Base de Datos")
 
-Tickets <- read.csv2(
-  "TICKET_CREADOS_POR_FECHA_Created_2019-10-11_21-27.csv", 
-  encoding = "UTF-8") 
-
-Tickets <- Tickets %>%
-  filter(Fecha.de.cierre != "", Número != 11206)
+Tickets <- read.csv2("TICKETS CERRADOS.csv", encoding = "UTF-8") 
 
 ###################
 ## Seri temporal ##
 ###################
-
-
-Tickets$Creado <- 
-  format(as.Date(Tickets$Creado), format='%Y-%m-%d')
-Tickets$Fecha.de.cierre <- 
-  format(as.Date(Tickets$Fecha.de.cierre), format='%Y-%m-%d')
 
 Creado <- Tickets %>%
   select(Creado) %>%
