@@ -7,15 +7,19 @@ Tickets <- read.csv2(
   encoding = "UTF-8") 
 
 Tickets <- Tickets %>%
-  filter(Fecha.de.cierre != "", Número != 11206) %>% 
+  select(Título, Creado, Fecha.de.cierre, Cola, 
+         Prioridad, Cliente, ID.del.cliente, Servicio, Tipo) %>%
+  rename(Tituo = Título, Creacion = Creado, 
+         Cierre = Fecha.de.cierre, ID.Cliente = ID.del.cliente) %>%
   mutate(Servicio = replace(as.character(Servicio), 
-                            Servicio == "", 
-                            "No Clasificado"))
+                            Servicio == "", "No Clasificado")) %>%
+  filter(Cierre != "", Cliente != "") 
 
 Tickets$Creado <- 
-  format(as.Date(Tickets$Creado), format='%Y-%m-%d')
+  format(as.Date(Tickets$Creacion), format='%Y-%m-%d')
 
 Tickets$Fecha.de.cierre <- 
-  format(as.Date(Tickets$Fecha.de.cierre), format='%Y-%m-%d')
+  format(as.Date(Tickets$Cierre), format='%Y-%m-%d')
 
 write.csv2(Tickets, "TICKETS CERRADOS.csv")
+

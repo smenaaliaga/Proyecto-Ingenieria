@@ -49,8 +49,8 @@ ggplot(Prioridad_Servicio, aes(x=Prioridad, y=N, fill = Servicio)) +
 ###########################################
 
 resol_prioridad_servicio <- Tickets %>%
-  filter(Tickets$Fecha.de.cierre != "", Servicio != "", Servicio != "Software") %>%
-  mutate(Dia_Resol = as.Date(Fecha.de.cierre) - as.Date(Creado)) %>%
+  filter(Tickets$Cierre != "", Servicio != "", Servicio != "Software") %>%
+  mutate(Dia_Resol = as.Date(Cierre) - as.Date(Creacion)) %>%
   select(Prioridad, Servicio, Dia_Resol) 
 
 resol_prioridad_servicio <- 

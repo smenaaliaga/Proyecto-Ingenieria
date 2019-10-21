@@ -11,30 +11,30 @@ Tickets <- read.csv2("TICKETS CERRADOS.csv", encoding = "UTF-8")
 ## Seri temporal ##
 ###################
 
-Creado <- Tickets %>%
-  select(Creado) %>%
-  group_by(Creado) %>%
+Creacion <- Tickets %>%
+  select(Creacion) %>%
+  group_by(Creacion) %>%
   summarise(N=n())
 
 # Diario
-ts_Creado_Diarios <- ts(Creado$N, start=c(2015,7), frequency=365)
+ts_Creacion_Diarios <- ts(Creacion$N, start=c(2015,7), frequency=365)
 
-autoplot(ts_Creado_Diarios) +
-  ggtitle("Tickets creados por dia") +
+autoplot(ts_Creacion_Diarios) +
+  ggtitle("Tickets Creacions por dia") +
   ylab("# de tickets") +
   xlab("dias") 
 
 # Mensual
-Creado_Mensual <- Creado %>%
-  mutate(MES = month(Creado), ANNO = year(Creado)) %>%
+Creacion_Mensual <- Creacion %>%
+  mutate(MES = month(Creacion), ANNO = year(Creacion)) %>%
   group_by(ANNO, MES) %>%
   select(ANNO, MES, N) %>%
   summarise(N = sum(N))
 
-ts_Creado_Mensual <- ts(Creado_Mensual$N, start=c(2018,1), frequency=12)
+ts_Creacion_Mensual <- ts(Creacion_Mensual$N, start=c(2018,1), frequency=12)
 
-autoplot(ts_Creado_Mensual) +
-  ggtitle("Tickets creados por mes") +
+autoplot(ts_Creacion_Mensual) +
+  ggtitle("Tickets Creacions por mes") +
   ylab("# de tickets") +
   xlab("Mes") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
@@ -47,8 +47,8 @@ autoplot(ts_Creado_Mensual) +
 ###############################
 
 dias_resolucion <- Tickets %>%
-  select(Creado, Fecha.de.cierre) %>%
-  mutate(DIA = as.Date(Fecha.de.cierre) - as.Date(Creado)) %>%
+  select(Creacion, Cierre) %>%
+  mutate(DIA = as.Date(Cierre) - as.Date(Creacion)) %>%
   group_by(DIA) %>%
   summarise(N = n())
 

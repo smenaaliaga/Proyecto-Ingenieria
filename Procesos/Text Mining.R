@@ -18,14 +18,22 @@ limpieza <- function(texto){
 }
 
 Tickets <- Tickets %>% 
-  mutate(Titulo_Tranform = map(.x = Título, .f = limpieza))
+  mutate(Titulo_Tranform = map(.x = Titulo, .f = limpieza))
 
-Tickets_NC <- Tickets %>% 
-  filter(Servicio != "No Clasificado") %>% 
-  mutate(Titulo_Tranform = map(.x = Título, .f = limpieza))
+Tickets_Clas_SoloReq <- Tickets %>% 
+  filter(Servicio != "No Clasificado", Tipo == "Requerimiento") %>% 
+  mutate(Titulo_Tranform = map(.x = Titulo, .f = limpieza))
 
+Tickets_NoClas_SoloReq <- Tickets %>% 
+  filter(Servicio == "No Clasificado", Tipo == "Requerimiento") %>% 
+  mutate(Titulo_Tranform = map(.x = Titulo, .f = limpieza))
+
+Tickets_NC$Titulo_Tranform
 
 Tickets_NC %>% 
   group_by(ID.del.cliente) %>%
   count(N = n()) %>%
   arrange(desc(n))
+
+tweets_tidy %>% group_by(autor, token) %>% count(token) %>% group_by(autor) %>%
+  top_n(10, n) %>% arrange(autor, desc(n)) %>% print(n=30)
