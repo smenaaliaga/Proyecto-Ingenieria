@@ -9,7 +9,7 @@ Tickets <- read.csv2(
 Tickets <- Tickets %>%
   select(Título, Creado, Fecha.de.cierre, Cola, 
          Prioridad, Cliente, ID.del.cliente, Servicio, Tipo) %>%
-  rename(Tituo = Título, Creacion = Creado, 
+  rename(Titulo = Título, Creacion = Creado, 
          Cierre = Fecha.de.cierre, ID.Cliente = ID.del.cliente) %>%
   mutate(Servicio = replace(as.character(Servicio), 
                             Servicio == "", "No Clasificado")) %>%
