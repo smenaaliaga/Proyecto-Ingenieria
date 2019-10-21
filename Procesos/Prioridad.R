@@ -15,8 +15,8 @@ Prioridad <- Tickets %>%
 
 ggplot(Prioridad, aes(x=Prioridad, y=N)) +
   geom_bar(stat="identity") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Cantidad de ticket por prioridad") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  ggtitle("Cantidad de ticket por prioridad asignada") +
   ylab("# de tickets") +
   xlab("Prioridades") +
   geom_text(aes(x = Prioridad, y = N, label = N), vjust = -0.5)

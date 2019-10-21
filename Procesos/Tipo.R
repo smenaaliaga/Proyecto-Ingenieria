@@ -15,8 +15,8 @@ Tipo <- Tickets %>%
 
 ggplot(Tipo, aes(x=Tipo, y=N)) +
   geom_bar(stat="identity") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  ggtitle("Cantidad de tickets por tipo") +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  ggtitle("Cantidad de tickets por tipo de solicitud") +
   ylab("# de tickets") +
   xlab("Tipos") +
   geom_text(aes(x = Tipo, y = N, label = N), vjust = -0.5)

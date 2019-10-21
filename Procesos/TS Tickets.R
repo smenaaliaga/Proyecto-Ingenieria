@@ -24,22 +24,6 @@ autoplot(ts_Creado_Diarios) +
   ylab("# de tickets") +
   xlab("dias") 
 
-# Semanal
-Creado_Semanal <- Creado %>%
-  mutate(SEMANA = week(Creado), ANNO = year(Creado)) %>%
-  group_by(ANNO, SEMANA) %>%
-  select(ANNO, SEMANA, N) %>%
-  summarise(N = sum(N))
-
-ts_Creado_Semanal <- ts(Creado_Semanal$N, start=c(2018,1), frequency=52)
-
-autoplot(ts_Creado_Semanal) +
-  ggtitle("Tickets creados por semana") +
-  ylab("# de tickets") +
-  xlab("Semanas") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_x_date(breaks = "2 weeks")
-
 # Mensual
 Creado_Mensual <- Creado %>%
   mutate(MES = month(Creado), ANNO = year(Creado)) %>%
@@ -63,7 +47,6 @@ autoplot(ts_Creado_Mensual) +
 ###############################
 
 dias_resolucion <- Tickets %>%
-  filter(Tickets$Fecha.de.cierre != "") %>%
   select(Creado, Fecha.de.cierre) %>%
   mutate(DIA = as.Date(Fecha.de.cierre) - as.Date(Creado)) %>%
   group_by(DIA) %>%
@@ -71,7 +54,7 @@ dias_resolucion <- Tickets %>%
 
 ggplot(dias_resolucion, aes(x=DIA, y=N)) +
   geom_bar(stat="identity") +
-  ggtitle("Demora de resolucion de ticket") +
+  ggtitle("Demora en la resolucion de tickets") +
   ylab("# de tickets") +
   xlab("Dias") +
   coord_cartesian(xlim=c(0,25))
