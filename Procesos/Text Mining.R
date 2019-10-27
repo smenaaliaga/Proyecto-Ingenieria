@@ -1,3 +1,6 @@
+install.packages("tidytext")
+require(tidytext)
+
 # Se utiliza este script para entender la naturaleza de los titulos de
 # tickets clasificados y asi poder categorizar los no clasificados
 
@@ -40,7 +43,7 @@ Tickets_SoloReq_NoClas <- Tickets %>%
   filter(Servicio == "No Clasificado", Tipo == "Requerimiento") %>% 
   mutate(Token = map(.x = Titulo, .f = limpieza))
 
-tweets %>% select(texto_tokenizado) %>% head()
+Tickets_SoloReq_NoClas %>% select(Token) %>% head()
 
 ## G2: Se expande Token en N column igual a largo del Token
 Tickets_SoloReq_NoClas <- Tickets_SoloReq_NoClas  %>% unnest()
@@ -57,3 +60,17 @@ Tickets_SoloReq_NoClas %>% group_by(Token) %>% count(Token) %>%
   arrange(desc(n)) %>% print(n=30)
 
 
+
+# STOPWORDS
+
+## Lista de palabras vacias
+lista_stopwords <- get_stopwords(language = "es", source = "snowball") %>%
+  select(word)
+
+## Se filtran las stopwords
+## G1
+Tickets_SoloReq_Clas <- Tickets_SoloReq_Clas %>% 
+  filter(!(Token %in% lista_stopwords$word))
+## G2
+Tickets_SoloReq_NoClas <- Tickets_SoloReq_NoClas %>% 
+  filter(!(Token %in% lista_stopwords$word))
